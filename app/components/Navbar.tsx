@@ -1,24 +1,38 @@
 import Link from "next/link"
-import Image from "next/image"
+import Logo from "./Logo"
 
 export const Navbar = async () => {
-  return (
-    <header className="fixed top-0 left-0 right-0 bg-gradient-to-tl from-red-950 via-black to-black">
-      <nav className="flex justify-between gap-8 p-4 px-6 font-[family-name:var(--font-geist-mono)]">
-        <Link href={'/'} className="flex justify-center items-center">
-          <Image src={"/wolfz_alpha.svg"} alt="logo" width={64} height={64} className="dark:invert" />
+  return <header className="fixed top-0 left-0 right-0 pt-4 z-50 bg-gradient-to-tl from-red-950/50 via-black/50 to-black/50">
+    <nav className="flex justify-between font-[family-name:var(--font-geist-mono)]">
+      <Link href={'/'} className="flex justify-center items-center px-4 text-foreground bg-transparent hover:text-accent hover:bg-gradient-to-t from-accent via-transparent to-transparent transition-colors group relative">
+        <Logo height={64} width={64} />
+        <div className="w-full absolute bottom-0 left-0 bg-accent group-hover:pt-1 transition-all" />
+      </Link>
+      <div className="flex flex-1 items-center gap-6">
+        <Link href={'/home'} className="flex justify-center items-center group relative h-full w-full">Home
+          <div className="w-full h-0.5 absolute bottom-0 left-0 bg-accent opacity-0 group-hover:opacity-100 transition" />
         </Link>
-        <div className="flex flex-1 items-center gap-6">
-          <Link href={'/'}>Home</Link>
-          <Link href={'/'}>Store</Link>
-          <Link href={'/'}>Blog</Link>
-          <Link href={'/'}>About</Link>
+        <Link href={'/store'} className="flex justify-center items-center group relative h-full w-full">Store
+          <div className="w-full h-0.5 absolute bottom-0 left-0 bg-accent opacity-0 group-hover:opacity-100 transition" />
+        </Link>
+        <Link href={'/blog'} className="flex justify-center items-center group relative h-full w-full">Blog
+          <div className="w-full h-0.5 absolute bottom-0 left-0 bg-accent opacity-0 group-hover:opacity-100 transition" />
+        </Link>
+        <Link href={'/about'} className="flex justify-center items-center group relative h-full w-full">About
+          <div className="w-full h-0.5 absolute bottom-0 left-0 bg-accent opacity-0 group-hover:opacity-100 transition" />
+        </Link>
+      </div>
+      <div className="flex justify-center items-center gap-6">
+        <Link href={'/login'} className="flex justify-center items-center group relative h-full">Login
+          <div className="w-full h-0.5 absolute bottom-0 left-0 bg-accent opacity-0 group-hover:opacity-100 transition" />
+        </Link>
+        <Link href={'/'} className="flex justify-center items-center group relative h-full">User
+          <div className="w-full h-0.5 absolute bottom-0 left-0 bg-accent opacity-0 group-hover:opacity-100 transition" />
+        </Link>
+        <div className="px-4">
+          <Link href={'/'}><div className="rounded-full w-10 h-10 bg-accent" /></Link>
         </div>
-        <div className="flex justify-center items-center gap-6">
-          <Link href={'/'}>Login</Link>
-          <Link href={'/'}>User</Link>
-          <Link href={'/'}><div className="rounded-full w-10 h-10 bg-white" /></Link>
-          {/* {session && session?.user ? (<>
+        {/* {session && session?.user ? (<>
             <Link href={'/'}>Something</Link>
             <Link href={`/user/${session.user.id}`}><span>{session?.user?.name}</span></Link>
             <button onClick={signOut}>Logout</button>
@@ -33,8 +47,7 @@ export const Navbar = async () => {
             </button>
           </form>
         </>)} */}
-        </div>
-      </nav>
-    </header >
-  )
+      </div>
+    </nav>
+  </header>
 }

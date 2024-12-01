@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@property --background {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: white;
+}
+
+@property --foreground {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: black;
+}
+
+@property --accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: red;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -18,4 +36,5 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  transition: color 0.3s ease, background 0.3s ease;
 }
