@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { NextPage } from 'next'
 import { useState } from "react"
@@ -12,63 +12,57 @@ type FormData = {
 };
 
 const Page: NextPage = () => {
+  const { setSession } = useSession()
   const router = useRouter();
-  const { setSession } = useSession();
-  const [error, setError] = useState<string>("");
-  const [formData, setFormData] = useState<FormData>({
-    email: '',
-    password: ''
-  });
+  const [formData, setFormData] = useState<FormData>({ email: "", password: "" });
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
     try {
-      const response = await axios.post("/api/auth/login", formData)
+      const response = await axios.post("/api/auth/signup", formData);
 
       setSession(response.data.session);
-      
-      if (response.status === 200) {
-        router.push("/home");
+
+      if (response.status === 201) {
+        router.push("/home/setup");
       }
-    } catch (error) {
-      console.error("Login failed:", error)
-      setError("Invalid email or password.")
+    } catch (error: any) {
+      if (error.response) {
+        setError(error.response.data.message || "An error occurred");
+      } else {
+        setError("An error occurred");
+      }
     }
-  }
+  };
 
   return <div className="min-h-screen flex flex-col items-center justify-center">
-    <h1 className="text-2xl font-bold mb-4">Login</h1>
-    {error && <p className="text-red-500 mb-4">{error}</p>}
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-1/3">
-      <div>
+      <h1 className="text-2xl font-bold mb-4">Sign Up</h1>
+
+      {error && <p className="text-red-500 mb-4">{error}</p>}
+
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-1/3">
         <input
-          id="email"
+          name="email"
           type="email"
           placeholder="Email"
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           className="bg-background p-2"
-          required
         />
-      </div>
-
-      <div>
         <input
-          id="password"
+          name="password"
           type="password"
           placeholder="Password"
           value={formData.password}
-          autoComplete="on"
           onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+          autoComplete="on"
           className="bg-background p-2"
-          required
         />
-      </div>
-
-      <button type="submit">Login</button>
-    </form>
-  </div>
-}
+        <button type="submit" className="bg-accent py-2 px-4">Sign Up</button>
+      </form>
+    </div>
+};
 
 export default Page

@@ -1,12 +1,15 @@
 import { Footer } from "../components/Footer"
-import { Navbar } from "../components/Navbar"
+import { Header } from "../components/Header"
+import { SessionProvider } from "../context/SessionContext"
 
 export default function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
-    return <div className="flex flex-col justify-between min-h-screen">
-        <Navbar />
-        <main className="mt-24">
-            {children}
-        </main>
-        <Footer />
-    </div>
+    return <SessionProvider>
+        <div className="flex flex-col justify-between min-h-screen">
+            <Header />
+            <main className="mt-24">
+                {children}
+            </main>
+            <Footer />
+        </div>
+    </SessionProvider>
 }

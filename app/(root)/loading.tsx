@@ -1,15 +1,9 @@
-import Image from "next/image";
+import Logo from "../components/Logo";
+
 export default function Loading() {
-  return (
-    <div className="fixed inset-0 flex items-center justify-center z-50">
-      <Image
-          className="dark:invert animate-spin"
-          src="/wolfz_alpha.svg"
-          alt="wolfz"
-          width={180}
-          height={180}
-          priority
-        />
+  return <div className="fixed inset-0 flex items-center justify-center z-50">
+    <div className="animate-spin text-foreground">
+      <Logo width={256} height={256} />
     </div>
-  );
+  </div>
 }
