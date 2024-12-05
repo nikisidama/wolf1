@@ -1,6 +1,6 @@
 import Logo from "./Logo"
 
-export const Footer = () => {
+const Footer = () => {
     return <footer className="py-6 mt-16 z-50 bg-gradient-to-l from-red-950 via-black to-black">
         <div className="mx-4 sm:flex sm:items-center sm:justify-between">
             <div className="flex justify-center text-accent sm:justify-start">
@@ -13,3 +13,5 @@ export const Footer = () => {
         </div>
     </footer>
 }
+
+export default Footer

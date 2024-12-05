@@ -1,9 +1,8 @@
-import seed from "@/utils/seed" 
+import seed from "@/utils/seed"
 
 export default async function Seed() {
     await seed();
-
-    return (<>
+    return <>
         Seeding complete!
-    </>)
+    </>
 }

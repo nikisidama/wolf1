@@ -1,6 +1,6 @@
-import { Footer } from "../components/Footer"
-import { Header } from "../components/Header"
 import { SessionProvider } from "../context/SessionContext"
+import Footer from "../components/Footer"
+import Header from "../components/Header"
 
 export default function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
     return <SessionProvider>

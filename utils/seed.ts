@@ -1,7 +1,9 @@
 import prisma from "@/utils/db"
-import bcrypt from "bcrypt";
+import bcrypt from "bcrypt"
 
 export default async function seed() {
+    if ((await prisma.user.count()) > 0) return;
+
     const password = await bcrypt.hash("password", 10);
     const users = await prisma.user.create({
         data: {
@@ -25,7 +27,7 @@ export default async function seed() {
         },
     });
 
-    console.log(users);
+    console.log(users)
 }
 
 export async function seedPost() {
@@ -36,5 +38,5 @@ export async function seedPost() {
             userId: 1, 
         },
     });
-    console.log(newPost);
+    console.log(newPost)
 }

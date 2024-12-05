@@ -1,9 +1,8 @@
-// app/api/profile/setup/route.ts
-"use server";
+"use server"
 
-import prisma from "@/utils/db";
-import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
+import { NextResponse } from "next/server"
+import { cookies } from "next/headers"
+import prisma from "@/utils/db"
 
 export async function POST(request: Request) {
   try {
@@ -13,22 +12,13 @@ export async function POST(request: Request) {
     const cookieStore = cookies();
     const session = (await cookieStore).get("session")?.value;
 
-    if (!session) {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-    }
+    if (!session) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
     const parsedSession = JSON.parse(session);
+    await prisma.profile.update({ where: { userId: parsedSession.id }, data: { name, bio } });
 
-    await prisma.profile.update({
-      where: { userId: parsedSession.id },
-      data: { name, bio },
-    });
-
-    return NextResponse.json({ message: "Profile updated successfully" });
+    return NextResponse.json({ message: "Profile updated successfully" })
   } catch (error) {
-    return NextResponse.json(
-      { error: { message: error instanceof Error ? error.message : "Unknown error" } },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: { message: error instanceof Error ? error.message : "Unknown error" } }, { status: 500 })
   }
 }

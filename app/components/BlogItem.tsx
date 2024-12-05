@@ -1,18 +1,19 @@
-import Image from "next/image";
-import Link from "next/link";
-import { useSession } from "../context/SessionContext";
+import { useSession } from "../context/SessionContext"
+import Image from "next/image"
+import Link from "next/link"
 
 type CardProps = {
-    id: number;
-    title: string;
-    description: string;
-    author?: string;
-    image?: string
-    date?: string
+    id: number,
+    userid: number,
+    title: string,
+    description: string,
+    author?: string,
+    image?: string,
+    date?: string,
     deleteItem: (id: number) => void
 };
 
-export default function BlogItem({ id, title, description, author, image, date, deleteItem }: CardProps) {
+const BlogItem = ({ id, userid, title, description, author, image, date, deleteItem }: CardProps) => {
     const { session } = useSession();
     const imageSrc = image || "/tempBlog.webp";
 
@@ -29,11 +30,10 @@ export default function BlogItem({ id, title, description, author, image, date, 
             <div className="text-sm line-clamp-2 max-w-0 opacity-0 group-hover:max-w-full group-hover:opacity-100 transition-all duration-400">{description}</div>
         </div>
         <Link href={`blog/${id}`} className="absolute top-0 left-0 w-full h-full" />
-
-        {session && (session.id === id || session.role === "ADMIN") &&
+        {session && (session.id === userid || session.role === "ADMIN") &&
             <div className="absolute top-0 right-0 w-[150px] h-auto bg-background text-foreground opacity-0 group-hover:opacity-100 transition-all duration-500">
                 <ul className="flex flex-col p-2">
-                    <Link href={`blog/${id}/edit`} className="px-4 py-2 hover:text-accent transition-colors cursor-pointer">Edit</Link>
+                    <Link href={`blog/${id}/config`} className="px-4 py-2 hover:text-accent transition-colors cursor-pointer">Edit</Link>
                     <button onClick={() => deleteItem(id)} className="px-4 py-2 text-left hover:text-accent transition-colors cursor-pointer">Delete</button>
                     <Link href={`blog/${id}/report`} className="px-4 py-2 hover:text-accent transition-colors cursor-pointer">Report</Link>
                 </ul>
@@ -41,3 +41,5 @@ export default function BlogItem({ id, title, description, author, image, date, 
         }
     </div>
 }
+
+export default BlogItem

@@ -3,10 +3,11 @@ import BlogPage from "@/app/components/BlogPage"
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "wolf blog",
+  description: "wolf blog"
 }
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
-  const id = (await params).id
-  return <BlogPage id={id} />
+  return <div className="flex flex-col items-center w-full">
+    <BlogPage id={(await params).id} />
+  </div>
 }

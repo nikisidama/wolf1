@@ -1,9 +1,9 @@
-import BlogContent from '@/app/components/BlogContent'
-import { Metadata } from 'next'
+import BlogContent from "@/app/components/BlogContent"
+import { Metadata } from "next"
 
 export const metadata: Metadata = {
     title: "Blog",
-    description: "wolf blog",
+    description: "wolf blog"
 }
 
 export default function Page() {

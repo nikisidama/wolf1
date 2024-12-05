@@ -1,9 +1,8 @@
-// app/setup/page.tsx
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import axios from "axios";
+import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
+import axios from "axios"
 
 export default function SetupPage() {
   const [profile, setProfile] = useState({ name: "", bio: "" });
@@ -17,19 +16,16 @@ export default function SetupPage() {
     try {
       await axios.post("/api/profile/setup", profile);
       router.push("/dashboard");
-    } catch (error) {
-      console.error("Error setting up profile:", error);
-    } finally {
-      setLoading(false);
-    }
+    } 
+    catch (error) { console.error("Error setting up profile:", error) } 
+    finally { setLoading(false) }
   };
 
-  return (
+  return <div className="flex flex-col items-center w-full">
     <div className="setup-container">
       <h1>Complete Your Profile</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          Name:
+        <label>Name:
           <input
             type="text"
             value={profile.name}
@@ -37,17 +33,14 @@ export default function SetupPage() {
             required
           />
         </label>
-        <label>
-          Bio:
+        <label>Bio:
           <textarea
             value={profile.bio}
             onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
           />
         </label>
-        <button type="submit" disabled={loading}>
-          {loading ? "Saving..." : "Save"}
-        </button>
+        <button type="submit" disabled={loading}>{loading ? "Saving..." : "Save"}</button>
       </form>
     </div>
-  );
+  </div>
 }
