@@ -35,7 +35,7 @@ export default function Page() {
     }
   };
 
-  return <div className="flex flex-col items-center justify-center gap-4 min-h-screen">
+  return <div className="flex flex-col items-center justify-center gap-4 min-h-screen w-full">
     <h1 className="text-2xl font-bold mb-4">Sign Up</h1>
     {error && <p className="text-red-500 mb-4">{error}</p>}
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-1/3">

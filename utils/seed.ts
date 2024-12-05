@@ -13,13 +13,13 @@ export default async function seed() {
             profile: {
                 create: {
                   name: "Admin",
-                  bio: "Hello world",
+                  bio: "Hello world!",
                 },
               },
             posts: {
                 create: [
                     {
-                        title: 'Hello World',
+                        title: 'Hello World!',
                         content: 'Lorem ipsum dol epturi! Fugit numquam, veritatis cumque nobis minima at. Deserunt, vel eum!',            
                     },
                 ],

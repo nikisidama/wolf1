@@ -1,46 +1,15 @@
-"use client"
+import SetupForm from "@/app/components/SetupForm"
+import { Metadata } from "next"
 
-import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
-import axios from "axios"
+export const metadata: Metadata = {
+  title: "Setup",
+  description: "setup wolf"
+}
 
-export default function SetupPage() {
-  const [profile, setProfile] = useState({ name: "", bio: "" });
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
+export default function Page() {
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      await axios.post("/api/profile/setup", profile);
-      router.push("/dashboard");
-    } 
-    catch (error) { console.error("Error setting up profile:", error) } 
-    finally { setLoading(false) }
-  };
-
-  return <div className="flex flex-col items-center w-full">
-    <div className="setup-container">
-      <h1>Complete Your Profile</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Name:
-          <input
-            type="text"
-            value={profile.name}
-            onChange={(e) => setProfile({ ...profile, name: e.target.value })}
-            required
-          />
-        </label>
-        <label>Bio:
-          <textarea
-            value={profile.bio}
-            onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
-          />
-        </label>
-        <button type="submit" disabled={loading}>{loading ? "Saving..." : "Save"}</button>
-      </form>
-    </div>
+  return <div className="flex flex-col items-center gap-4 w-full h-full">
+    <h1>Complete Your Profile</h1>
+    <SetupForm />
   </div>
 }

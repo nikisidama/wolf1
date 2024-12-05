@@ -1,15 +1,20 @@
-import { PostSchema } from "@/utils/zodSchema";
+import { PostSchema } from "@/utils/zodSchema"
+import { getSession } from "@/utils/cookie"
 import { NextResponse } from "next/server"
 import prisma from "@/utils/db"
-import { z } from "zod";
+import { z } from "zod"
 
 export async function POST(request: Request) {
     try {
         const body = await request.json();
 
-        const { title, content, userId } = PostSchema.parse(body);
-        if (!title || !content || !userId) return NextResponse.json({ message: "All fields are required" }, { status: 400 });
-        
+        const { title, content } = PostSchema.parse(body);
+        if (!title || !content ) return NextResponse.json({ message: "All fields are required" }, { status: 400 });
+
+        const session = await getSession();
+        if (!session) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    
+        const { id: userId } = session;
         const post = await prisma.post.create({ data: { title, content, userId } });
 
         return NextResponse.json({ post }, { status: 201 })

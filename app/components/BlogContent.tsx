@@ -21,9 +21,10 @@ interface Post {
 }
 
 const BlogContent = () => {
+    const [deleting, setDeleting] = useState<number | null>(null);
+    const [error, setError] = useState<string | null>(null);
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
     const { session } = useSession();
 
     const router = useRouter();
@@ -61,6 +62,7 @@ const BlogContent = () => {
     };
 
     const handleDeletePost = async (id: number) => {
+        setDeleting(id);
         try {
             const response = await axios.delete(`/api/blog/delete/${id}`);
             if (response.status === 200) refreshData()
@@ -110,6 +112,7 @@ const BlogContent = () => {
                         description={post.content}
                         author={post.user?.profile?.name}
                         date={post.createdAt}
+                        className={deleting === post.id ? "opacity-0" : ""}
                         deleteItem={() => handleDeletePost(post.id)}
                     />
                 ))

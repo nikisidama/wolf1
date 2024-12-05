@@ -10,14 +10,15 @@ type CardProps = {
     author?: string,
     image?: string,
     date?: string,
+    className?: string,
     deleteItem: (id: number) => void
 };
 
-const BlogItem = ({ id, userid, title, description, author, image, date, deleteItem }: CardProps) => {
+const BlogItem = ({ id, userid, title, description, author, image, date, className, deleteItem }: CardProps) => {
     const { session } = useSession();
     const imageSrc = image || "/tempBlog.webp";
 
-    return <div className="flex flex-col justify-start items-center w-full h-[30rem] shadow-xl overflow-hidden bg-[#151515] relative group">
+    return <div className={`flex flex-col justify-start items-center w-full h-[30rem] shadow-xl overflow-hidden bg-[#151515] relative group transition-opacity ${className}`}>
         <div className="w-full h-2/3 relative">
             <Image src={imageSrc} alt="blog" fill className="object-cover" />
         </div>

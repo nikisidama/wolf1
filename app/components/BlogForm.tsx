@@ -17,10 +17,11 @@ type ErrorState = {
 
 const BlogForm = ({ id }: { id?: number }) => {
     const editing = !!id;
-    const [userid, setUserid] = useState<number>(0);
     const [formState, setFormState] = useState<FormState>({ title: "", content: "" });
-    const [errors, setErrors] = useState<ErrorState>({});
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+    const [errors, setErrors] = useState<ErrorState>({});
+    const [userid, setUserid] = useState<number>(0);
+    const [loading, setLoading] = useState(true);
     const { session } = useSession();
     const router = useRouter();
 
@@ -32,7 +33,7 @@ const BlogForm = ({ id }: { id?: number }) => {
         if (!formState.content.trim()) {
             errors.content = "Content is required.";
         }
-    
+
         setErrors(errors);
         return Object.keys(errors).length === 0;
     };
@@ -45,8 +46,7 @@ const BlogForm = ({ id }: { id?: number }) => {
 
         const payload = {
             title: formState.title,
-            content: formState.content,
-            userId: session.id,
+            content: formState.content
         };
 
         try {
@@ -93,6 +93,8 @@ const BlogForm = ({ id }: { id?: number }) => {
                     return
                 }
             }
+            
+            setLoading(false)
         };
 
         if (userid || !editing) checkSession()
@@ -105,6 +107,8 @@ const BlogForm = ({ id }: { id?: number }) => {
             return () => clearTimeout(timer)
         }
     }, [errors]);
+
+    if (loading) return <div>Loading...</div>;
 
     return <form onSubmit={handleSubmit} className="w-[90%] h-full">
         {/* Title Field */}
