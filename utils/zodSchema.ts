@@ -9,8 +9,6 @@ export const LogInSchema = z.object({
   }),
 })
 
-export type SignInSchemaType = z.infer<typeof LogInSchema>
-
 export const SignUpSchema = z.object({
   email: z.string().email({
     message: 'Invalid email address',
@@ -20,4 +18,13 @@ export const SignUpSchema = z.object({
   }),
 })
 
-export type SignUpSchemaType = z.infer<typeof SignUpSchema>
+export const postSchema = z.object({
+  title: z
+    .string()
+    .min(1, { message: "Title is required" })
+    .max(128, { message: "Title cannot exceed 128 characters" }),
+  content: z
+    .string()
+    .min(1, { message: "Content is required" })
+    .max(4096, { message: "Content cannot exceed 4096 characters" }),
+});

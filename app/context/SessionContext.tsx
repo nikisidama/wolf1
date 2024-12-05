@@ -1,7 +1,8 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { getSession } from "@/utils/getSession";
+import { getSession } from "@/utils/cookie";
+import axios from "axios";
 
 type SessionData = {
   id: number;
@@ -24,9 +25,19 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
     const fetchSession = async () => {
       try {
         const sessionData = await getSession();
-        setSession(sessionData);
+        if (sessionData) {
+          const response = await axios.get(`/api/user/get/${sessionData.id}`);
+          const userData = response.data;
+          
+          setSession({
+            ...sessionData,
+            name: userData.profile?.name || sessionData.email.split("@")[0],
+          });
+        } else {
+          setSession(null);
+        }
       } catch (error) {
-        console.error("Failed to fetch session:", error);
+        console.error("Failed to fetch session or user data:", error);
         setSession(null);
       }
     };

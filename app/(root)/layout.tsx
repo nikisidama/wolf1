@@ -6,7 +6,7 @@ export default function Layout({ children }: Readonly<{ children: React.ReactNod
     return <SessionProvider>
         <div className="flex flex-col justify-between min-h-screen">
             <Header />
-            <main className="mt-24">
+            <main className="mt-24 relative h-full">
                 {children}
             </main>
             <Footer />

@@ -24,7 +24,7 @@ export const Header = () => {
       console.error("Logout failed", error);
     }
   };
-
+console.log(session)
   return <header className="fixed top-0 left-0 right-0 pt-4 z-50 bg-gradient-to-tl from-red-950/50 via-black/50 to-black/50">
     <nav className="flex justify-between font-[family-name:var(--font-geist-mono)]">
       <Link href={'/'} className={"flex justify-center items-center px-4 text-foreground bg-transparent hover:text-accent hover:bg-gradient-to-t from-accent via-transparent to-transparent transition-colors group relative"}>

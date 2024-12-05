@@ -1,12 +1,13 @@
-import { jwtVerify } from "jose";
+import { NextRequest, NextResponse } from "next/server";
+import { updateSession } from "./utils/cookie";
 
-const secretKey = new TextEncoder().encode(process.env.JWT_SECRET || "default-secret");
+export async function middleware(request: NextRequest) {
+  console.log("Middleware invoked")
+  const res = await updateSession(request)
+  if (res) return res;
+  else return NextResponse.redirect(new URL("/login", request.url));
+}
 
-export default async function verifyJWT(token: string) {
-  try {
-    const { payload } = await jwtVerify(token, secretKey);
-    return payload; // Contains user data (id, role, etc.)
-  } catch {
-    return null; // Invalid token
-  }
+export const config = {
+  matcher: ["/blog/new/:path*", "/blog/:id/edit",],
 }
