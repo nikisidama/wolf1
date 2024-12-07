@@ -12,7 +12,7 @@ type DataItem = {
 const BlogHightlight = () => {
     const data: DataItem[] = Array.from({ length: 5 }, (_, i) => ({
         id: i + 1,
-        title: `HIGHLIGHT ${i + 1}`,
+        title: `BLOG ${i + 1}`,
         description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam natus autem expedita aliquam dolores ad cum laboriosam hic totam sint, quaerat temporibus suscipit deleniti numquam at voluptates debitis repudiandae ratione. ${i + 1}.`,
     }));
 

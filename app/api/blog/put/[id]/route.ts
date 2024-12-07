@@ -1,13 +1,13 @@
+import { PostSchema } from "@/utils/zodSchema"
 import { getSession } from "@/utils/cookie"
 import { NextResponse } from "next/server"
-import { PostSchema } from "@/utils/zodSchema";
 import prisma from "@/utils/db"
-import { z } from "zod";
+import { z } from "zod"
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }>  }) {
   try {
     const body = await request.json();
-    const { title, content } = PostSchema.parse(body);
+    const { title, content, imageUrl } = PostSchema.parse(body);
     if (!title || !content) return NextResponse.json({ message: "All fields are required" }, { status: 400 });
 
     const id = Number((await params).id);
@@ -20,9 +20,8 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     if (!session) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
     const { id: userid, role: role } = session;
-
     if (userid === post.userId || role === "ADMIN") {
-      const post = await prisma.post.update({ where: { id: Number(params.id) }, data: { title, content } });
+      const post = await prisma.post.update({ where: { id: id }, data: { title, content, imageUrl } });
       return NextResponse.json({ post }, { status: 201 })
     }
 

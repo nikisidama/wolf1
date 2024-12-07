@@ -21,20 +21,32 @@
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: white;
+  --foreground: black;
+  --card-background: #ffffff;
+  --card-foreground: #171717;
+  --border: #ddd;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: black;
+  --foreground: white;
+  --card-background: #333;
+  --card-foreground: #ededed;
+  --border: #555;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
-  transition: color 0.3s ease, background 0.3s ease;
+  transition: color 0.5s ease, background 0.5s ease; 
+}
+
+html {
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+[contenteditable]:focus {
+  outline: none;
 }

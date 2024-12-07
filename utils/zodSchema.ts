@@ -20,7 +20,8 @@ export const PostSchema = z.object({
     .max(128, { message: "Title cannot exceed 128 characters" }),
   content: z.string()
     .min(1, { message: "Content is required" })
-    .max(4096, { message: "Content cannot exceed 4096 characters" })
+    .max(4096, { message: "Content cannot exceed 4096 characters" }),
+  imageUrl: z.string().optional()
 })
 
 export const ProfileSchema = z.object({

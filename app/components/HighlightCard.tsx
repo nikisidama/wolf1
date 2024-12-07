@@ -9,7 +9,7 @@ type CardProps = {
 
 export default function HighlightCard({ title, description, image }: CardProps) {
     const imageSrc = image || "/tempBlog.webp";
-    return <Link href="\" className="flex flex-col w-full h-full shadow-xl overflow-hidden relative group">
+    return <Link href="\blog" className="flex flex-col w-full h-full shadow-xl overflow-hidden relative group">
         <div className="w-full h-full -z-10 relative">
             <Image src="/tempBlog.webp" alt="blog" fill className="object-cover" />
         </div>

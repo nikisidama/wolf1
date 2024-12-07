@@ -12,9 +12,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
     if (!session) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
     const { id: userId, role: role } = session;
-
     const post = await prisma.post.findUnique({ where: { id }, select: { userId: true } });
-
     if (!post) return NextResponse.json({ message: "Post not found" }, { status: 404 });
 
     if (userId === post.userId || role === "ADMIN") {

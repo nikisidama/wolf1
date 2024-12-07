@@ -1,8 +1,11 @@
 "use client"
 
 import { useSession } from "@/app/context/SessionContext"
+import { Textarea } from "@/components/ui/textarea"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { useEffect, useState } from "react"
-import { getSession } from "@/utils/cookie" 
+import { getSession } from "@/utils/cookie"
 import { useRouter } from "next/navigation"
 import axios from "axios"
 
@@ -17,7 +20,7 @@ export const SetupForm = () => {
         setLoading(true);
 
         try {
-            const response = await axios.put("/api/setup", profile);
+            const response = await axios.put("/api/user/setup", profile);
             if (response.data.success) {
                 const session = await getSession();
                 if (!session) return;
@@ -38,24 +41,39 @@ export const SetupForm = () => {
 
     if (loading) return <div>Loading...</div>;
 
-    return <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 w-full h-full">
-        <label>Name:
-            <input
+    return <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 w-full h-full max-w-md mx-auto">
+        <div className="w-full">
+            <label htmlFor="name" className="text-sm font-medium">
+                Name
+            </label>
+            <Input
+                id="name"
                 type="text"
                 value={profile.name}
                 onChange={(e) => setProfile({ ...profile, name: e.target.value })}
-                className="bg-black p-2 w-full"
-                required
+                className="p-3 w-full rounded-md focus:ring-2 focus:ring-accent selection:text-foreground selection:bg-accent"
+                required    
             />
-        </label>
-        <label>Bio:
-            <textarea
+        </div>
+        <div className="w-full">
+            <label htmlFor="bio" className="text-sm font-medium">
+                Bio
+            </label>
+            <Textarea
+                id="bio"
                 value={profile.bio}
                 onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
-                className="bg-black p-4 w-full"
+                className="p-3 w-full rounded-md focus:ring-2 focus:ring-accent selection:text-foreground selection:bg-accent"
             />
-        </label>
-        <button type="submit" disabled={loading}>{loading ? "Saving..." : "Save"}</button>
+        </div>
+        <Button
+            type="submit"
+            variant={"outline"}
+            className="w-full mt-4 hover:text-background dark:hover:text-foreground"
+            disabled={loading}
+        >
+            {loading ? "Saving..." : "Save"}
+        </Button>
     </form>
 }
 

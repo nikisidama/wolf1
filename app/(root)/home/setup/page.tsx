@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function Page() {
 
   return <div className="flex flex-col items-center gap-4 w-full h-full">
-    <h1>Complete Your Profile</h1>
+    <h1>Complete Your <p className="text-accent">Profile</p></h1>
     <SetupForm />
   </div>
 }

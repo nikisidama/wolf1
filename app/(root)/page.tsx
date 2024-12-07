@@ -7,7 +7,7 @@ export const metadata = {
 }
 
 export default function Home() {
-  return <main className="flex flex-col items-center justify-items-center w-screen min-h-screen font-[family-name:var(--font-geist-sans)]">
+  return <div className="flex flex-col items-center justify-items-center w-full min-h-screen font-[family-name:var(--font-geist-sans)]">
     <section className="w-full h-[50rem]">
       <BlogHightlight />
     </section>
@@ -22,5 +22,5 @@ export default function Home() {
     <div className="text-2xl font-bold">W o l f
       <span className="text-4xl font-[family-name:none] text-accent"> I</span>
     </div>
-  </main>
+  </div>
 }

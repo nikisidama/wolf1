@@ -3,13 +3,14 @@
 import { useSession } from "../context/SessionContext"
 import { useRouter } from "next/navigation"
 import { logoutUser } from "@/utils/cookie"
+import { ModeToggle } from "./ThemeConfig"
 import Link from "next/link"
 import axios from "axios"
 import Logo from "./Logo"
 
 const style = {
-  link: "flex justify-center items-center h-full w-full text-foreground bg-transparent hover:text-accent hover:bg-gradient-to-t from-accent via-transparent to-transparent transition-colors group relative",
-  underline: "w-full absolute bottom-0 left-0 bg-accent group-hover:pt-1 transition-all duration-200"
+  link: "flex justify-center items-center h-full w-full hover:text-accent hover:bg-gradient-to-t from-accent via-transparent to-transparent group relative",
+  underline: "w-full absolute bottom-0 left-0 bg-accent group-hover:pt-64 group-hover:opacity-10 transition-all"
 };
 
 const Header = () => {
@@ -26,17 +27,23 @@ const Header = () => {
     catch (error) { console.error("Logout failed", error) }
   };
 
-  return <header className="fixed top-0 left-0 right-0 pt-4 z-50 bg-gradient-to-tl from-red-950/50 via-black/50 to-black/50">
-    <nav className="flex justify-between font-[family-name:var(--font-geist-mono)]">
-      <Link href={"/"} className={"flex justify-center items-center px-4 text-foreground bg-transparent hover:text-accent hover:bg-gradient-to-t from-accent via-transparent to-transparent transition-colors group relative"}>
-        <Logo height={64} width={64} />
+  return <header className="fixed top-0 left-0 right-0 pt-4 z-50 bg-gradient-to-t from-accent via-background to-background bg-[length:100%_170%]">
+    <nav className="flex justify-between font-mono">
+      <Link
+        href={"/"}
+        className="flex flex-col justify-center items-center px-2 sm:px-4 hover:text-accent hover:bg-gradient-to-t from-accent via-transparent to-transparent group relative"
+      >
+        <Logo height={48} width={48} />
         <div className={style.underline} />
       </Link>
       <div className="flex flex-1 items-center">
         <Link href={"/home"} className={style.link}>Home
           <div className={style.underline} />
         </Link>
-        <Link href={"/store"} className={style.link}>Store
+        {/* <Link href={"/store"} className={style.link}>Store
+          <div className={style.underline} />
+        </Link> */}
+        <Link href={"/user"} className={style.link}>Users
           <div className={style.underline} />
         </Link>
         <Link href={"/blog"} className={style.link}>Blog
@@ -47,12 +54,19 @@ const Header = () => {
         </Link>
       </div>
       <div className="flex justify-center items-center">
+        <div className={style.link}>
+          <div className={style.underline} />
+          <ModeToggle />
+        </div>
         {session?.email ? <>
-          {session.profile?.name}
-          <div className="px-4">
-            <Link href={"/home"}><div className="rounded-full w-10 h-10 bg-accent" /></Link>
-          </div>
-          <button className={`${style.link} px-6`} onClick={handleLogout}>Logout</button>
+          <Link href={"/home"} className={`${style.link} flex-1 px-6`}>
+            <p className="flex items-center space-x-2 whitespace-nowrap">{session.profile?.name}</p>
+            <div className={style.underline} />
+          </Link>
+          <button className={`${style.link} px-6`} onClick={handleLogout}>
+            Logout
+            <div className={style.underline} />
+          </button>
         </> : <>
           <Link href={"/login"} className={`${style.link} px-6`}>Login
             <div className={style.underline} />
@@ -62,7 +76,6 @@ const Header = () => {
           </Link>
         </>
         }
-        {<p className="absolute top-0 right-0">{JSON.stringify(session)}</p>}
       </div>
     </nav>
   </header>

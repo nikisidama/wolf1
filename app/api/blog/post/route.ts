@@ -8,14 +8,14 @@ export async function POST(request: Request) {
     try {
         const body = await request.json();
 
-        const { title, content } = PostSchema.parse(body);
+        const { title, content, imageUrl } = PostSchema.parse(body);
         if (!title || !content ) return NextResponse.json({ message: "All fields are required" }, { status: 400 });
 
         const session = await getSession();
         if (!session) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     
         const { id: userId } = session;
-        const post = await prisma.post.create({ data: { title, content, userId } });
+        const post = await prisma.post.create({ data: { title, content, imageUrl, userId } });
 
         return NextResponse.json({ post }, { status: 201 })
     } catch (error) {
